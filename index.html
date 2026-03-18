@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amin Ahamed — Creative Producer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #080808;
+    --bg2: #0e0e0e;
+    --surface: #111111;
+    --border: rgba(255,255,255,0.07);
+    --gold: #c8a96e;
+    --gold-dim: rgba(200,169,110,0.15);
+    --white: #f0ede8;
+    --muted: rgba(240,237,232,0.45);
+    --accent: #c8a96e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  #cursor {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+  }
+  #cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(200,169,110,0.5);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.18s ease;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 60px;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    backdrop-filter: blur(2px);
+  }
+  .nav-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-weight: 300;
+    font-style: italic;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 42px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 600;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/mnt/user-data/uploads/1773793228885_image.png');
+    background-size: cover;
+    background-position: center 30%;
+    filter: brightness(0.35) contrast(1.1);
+    transform: scale(1.03);
+    animation: heroZoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1.03); }
+    to { transform: scale(1.08); }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(8,8,8,0.2) 0%,
+      rgba(8,8,8,0.1) 40%,
+      rgba(8,8,8,0.7) 75%,
+      rgba(8,8,8,1) 100%
+    );
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+  .hero-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .hero-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(3.2rem, 7.5vw, 7.5rem);
+    font-weight: 200;
+    line-height: 1.0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards;
+  }
+  .hero-name em {
+    font-style: normal;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .hero-desc {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+  .hero-roles {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.65s forwards;
+  }
+  .hero-role {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    color: var(--muted);
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 80px;
+    right: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s forwards;
+  }
+  .hero-scroll span {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* SECTION STYLES */
+  section {
+    padding: 120px 60px;
+  }
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    font-weight: 200;
+    line-height: 1.15;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+  }
+  .section-title em { font-style: normal; color: var(--gold); font-weight: 700; }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    line-height: 1.75;
+    font-weight: 300;
+    color: rgba(240,237,232,0.85);
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--gold);
+    transition: height 0.4s ease;
+  }
+  .stat-card:hover { border-color: rgba(200,169,110,0.3); }
+  .stat-card:hover::before { height: 100%; }
+  .stat-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* CASE STUDIES */
+  .case-studies { background: var(--bg); }
+  .case-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .case-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 50px 60px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1.5fr;
+    gap: 60px;
+    align-items: center;
+    transition: background 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .case-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .case-item:hover { background: rgba(200,169,110,0.03); border-color: rgba(200,169,110,0.2); }
+  .case-item:hover::after { opacity: 1; }
+  .case-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 200;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .case-brand em { font-style: normal; color: var(--gold); font-weight: 700; }
+  .case-platform {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .case-summary {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  .case-summary strong { color: var(--white); }
+  .case-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .metric {
+    text-align: right;
+  }
+  .metric-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .metric-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .case-role-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 4px 12px;
+    margin-top: 12px;
+    transition: all 0.3s;
+  }
+  .case-item:hover .case-role-tag { border-color: var(--gold); color: var(--gold); }
+
+  /* REEL & PORTFOLIO */
+  .reel-section { background: var(--bg2); }
+  .reel-embed {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 80px;
+    position: relative;
+  }
+  .reel-embed iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .portfolio-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  .portfolio-item:hover { border-color: rgba(200,169,110,0.4); }
+  .portfolio-item iframe {
+    width: 167%;
+    height: 100%;
+    margin-left: -33%;
+    pointer-events: none;
+  }
+  .portfolio-item .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(8,8,8,0.0);
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+    transition: background 0.3s;
+  }
+  .portfolio-item:hover .overlay { background: rgba(8,8,8,0.6); }
+  .portfolio-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: var(--gold);
+    padding: 4px 10px;
+    color: var(--bg);
+    font-weight: 700;
+  }
+  .portfolio-item:hover .portfolio-label { opacity: 1; }
+
+  .portfolio-link-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+  }
+  .portfolio-link-item:hover { border-color: rgba(200,169,110,0.4); background: rgba(200,169,110,0.04); }
+  .pli-type {
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .pli-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    line-height: 1.2;
+    font-weight: 300;
+  }
+  .pli-arrow {
+    position: absolute;
+    top: 20px; right: 20px;
+    color: var(--gold);
+    font-size: 1.2rem;
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: all 0.3s;
+  }
+  .portfolio-link-item:hover .pli-arrow { opacity: 1; transform: translate(0, 0); }
+  .pli-num {
+    position: absolute;
+    top: 16px; left: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    color: rgba(200,169,110,0.08);
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  /* SKILLS */
+  .skills-section { background: var(--bg); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 40px;
+    transition: border-color 0.3s;
+  }
+  .skill-group:hover { border-color: rgba(200,169,110,0.25); }
+  .skill-group-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .skill-list li {
+    font-size: 0.8rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s;
+  }
+  .skill-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .skill-list li:hover { color: var(--white); }
+
+  /* EXPERIENCE */
+  .experience-section { background: var(--bg2); }
+  .exp-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 44px 50px;
+    transition: border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: var(--gold-dim);
+    transition: width 0.4s ease;
+  }
+  .exp-item:hover { border-color: rgba(200,169,110,0.25); }
+  .exp-item:hover::before { width: 3px; }
+  .exp-date {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--gold);
+    padding-top: 4px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .exp-company {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .exp-role {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .exp-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .exp-points li {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+  }
+  .exp-points li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.7rem;
+  }
+
+  /* EDUCATION */
+  .edu-section { background: var(--bg); }
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 50px;
+    transition: border-color 0.3s;
+  }
+  .edu-card:hover { border-color: rgba(200,169,110,0.3); }
+  .edu-year {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    color: var(--gold);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .edu-degree {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .edu-institution {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--bg);
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-inner {
+    max-width: 700px;
+  }
+  .contact-headline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 50px;
+  }
+  .contact-headline em { font-style: normal; color: var(--gold); font-weight: 700; }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 60px;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px 32px;
+    text-decoration: none;
+    transition: all 0.3s;
+    group: true;
+  }
+  .contact-link:hover { background: var(--gold-dim); border-color: rgba(200,169,110,0.4); }
+  .contact-link-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .contact-link-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    color: var(--white);
+    font-weight: 300;
+    font-style: italic;
+  }
+  .contact-link-arrow {
+    color: var(--gold);
+    font-size: 1rem;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.3s;
+  }
+  .contact-link:hover .contact-link-arrow { opacity: 1; transform: translateX(0); }
+
+  /* FOOTER */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 30px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .footer-gold {
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* divider */
+  .gold-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0.3;
+  }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    nav { padding: 22px 24px; }
+    .nav-links { gap: 20px; }
+    section { padding: 80px 24px; }
+    .hero { padding: 0 24px 60px; }
+    .about-grid, .case-item, .exp-item, .edu-grid, .skills-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .case-metrics { grid-template-columns: repeat(4, 1fr); }
+    .metric { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Amin Ahamed</a>
+  <ul class="nav-links">
+    <li><a href="#case-studies">Work</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">Bangkok · Dhaka · Global</div>
+    <h1 class="hero-name">Amin<br><em>Ahamed</em></h1>
+    <div class="hero-roles">
+      <span class="hero-role">Cinematographer</span>
+      <span class="hero-role">Video Editor</span>
+      <span class="hero-role">Creative Producer</span>
+    </div>
+    <p class="hero-desc">8 years crafting stories that move people — from billion-view campaigns to 12× ROAS ad creatives across 114 countries.</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div>
+      <h2 class="section-title">End-to-end creative,<br><em>ROI-driven</em></h2>
+      <p class="about-text">
+        I specialize in end-to-end digital marketing — from building content and launching campaigns to analyzing performance and optimizing for growth. With 8 years of experience working with Ed-tech and Fin-tech startups and personal brands, I focus on delivering practical, ROI-driven solutions that help brands scale globally.
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1B+</div>
+        <div class="stat-label">Views Generated</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">114+</div>
+        <div class="stat-label">Countries Reached</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">12×</div>
+        <div class="stat-label">Peak ROAS Achieved</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- CASE STUDIES -->
+<section id="case-studies" class="case-studies">
+  <div class="section-label">Case Studies</div>
+  <h2 class="section-title">Brands I've<br><em>Scaled</em></h2>
+
+  <div class="case-grid">
+
+    <!-- FundedNext -->
+    <div class="case-item" onclick="window.open('https://www.instagram.com/fundednext','_blank')">
+      <div>
+        <div class="case-brand">Funded<em>Next</em></div>
+        <div class="case-platform">Instagram · Global</div>
+        <div class="case-role-tag">Creative Strategy · Paid Ads</div>
+      </div>
+      <div class="case-summary">
+        Led creative strategy for this Fin-tech brand, building <strong>viral hooks and storytelling frameworks</strong> for both organic and paid short-form content. Executed campaigns across <strong>Google Ads and Meta</strong>, driving product launches and consistent revenue.
+      </div>
+      <div class="case-metrics">
+        <div class="metric">
+          <div class="metric-val">50k→600k+</div>
+          <div class="metric-label">Followers</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">50M+</div>
+          <div class="metric-label">Total Reach</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">12×</div>
+          <div class="metric-label">Peak ROAS</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">6–9%</div>
+          <div class="metric-label">Avg Engagement</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shikho -->
+    <div class="case-item" onclick="window.open('https://www.instagram.com/shikho.edtech','_blank')">
+      <div>
+        <div class="case-brand"><em>Shikho</em></div>
+        <div class="case-platform">Instagram · Ed-tech · BD</div>
+        <div class="case-role-tag">Education Storytelling · Creative</div>
+      </div>
+      <div class="case-summary">
+        Built high-retention short-form formats for Bangladesh's leading Ed-tech platform. Content strategy earned Shikho <strong>Bloomberg Catalyst features</strong>, the 'Best IT Company' award, and the <strong>ICT Award 2024</strong>. Personally received the Value Award 2023.
+      </div>
+      <div class="case-metrics">
+        <div class="metric">
+          <div class="metric-val">40k→120k+</div>
+          <div class="metric-label">Followers</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">8–12%</div>
+          <div class="metric-label">Engagement Rate</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">5×</div>
+          <div class="metric-label">Peak ROAS</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">5–8%</div>
+          <div class="metric-label">Lead Conversion</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Qinetic Music -->
+    <div class="case-item" onclick="window.open('https://www.instagram.com/qineticmusic','_blank')">
+      <div>
+        <div class="case-brand">Qinetic<br><em>Music</em></div>
+        <div class="case-platform">Instagram · Music · BD</div>
+        <div class="case-role-tag">Creative Direction · Discovery</div>
+      </div>
+      <div class="case-summary">
+        Defined creative direction and music release storytelling for Qinetic's music vertical. Developed <strong>short-form discovery content</strong> that consistently drove reach. Collaborated with musicians, bands, influencers, and filmmakers.
+      </div>
+      <div class="case-metrics">
+        <div class="metric">
+          <div class="metric-val">12k→60k+</div>
+          <div class="metric-label">Followers</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">800k+</div>
+          <div class="metric-label">Top Reel Views</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">3×</div>
+          <div class="metric-label">Peak ROAS</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">7–10%</div>
+          <div class="metric-label">Engagement Rate</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- REEL & PORTFOLIO -->
+<section id="portfolio" class="reel-section">
+  <div class="section-label">Portfolio</div>
+  <h2 class="section-title">Cinematography<br><em>Showreel</em></h2>
+
+  <div class="reel-embed">
+    <iframe src="https://www.youtube.com/embed/QyK_fNPA_1M?autoplay=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+  <div class="section-label">Video Editing</div>
+  <h2 class="section-title" style="margin-bottom:40px;">Selected<br><em>Works</em></h2>
+
+  <div class="portfolio-grid" style="margin-bottom: 2px;">
+
+    <!-- Short form works as link cards -->
+    <a class="portfolio-link-item" href="https://youtube.com/shorts/E7FCCHisJQc" target="_blank">
+      <div class="pli-num">01</div>
+      <div class="pli-type">Short Form · YouTube</div>
+      <div class="pli-title">Short Form Edit #1</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+    <a class="portfolio-link-item" href="https://youtube.com/shorts/NMP7Wqrjwdw" target="_blank">
+      <div class="pli-num">02</div>
+      <div class="pli-type">Short Form · YouTube</div>
+      <div class="pli-title">Short Form Edit #2</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+    <a class="portfolio-link-item" href="https://youtube.com/shorts/LzMO9CrbeLo" target="_blank">
+      <div class="pli-num">03</div>
+      <div class="pli-type">Short Form · YouTube</div>
+      <div class="pli-title">Short Form Edit #3</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+    <a class="portfolio-link-item" href="https://youtu.be/2oaACbq7LJ0" target="_blank">
+      <div class="pli-num">04</div>
+      <div class="pli-type">Long Form · YouTube</div>
+      <div class="pli-title">Long Form Edit</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+    <a class="portfolio-link-item" href="https://www.facebook.com/share/v/1BrkHP49fx/" target="_blank">
+      <div class="pli-num">05</div>
+      <div class="pli-type">Long Form · Facebook</div>
+      <div class="pli-title">Long Form Production</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+    <a class="portfolio-link-item" href="https://www.facebook.com/share/v/14YYaRjzZUw/" target="_blank">
+      <div class="pli-num">06</div>
+      <div class="pli-type">Long Form · Facebook</div>
+      <div class="pli-title">Long Form Production #2</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+  </div>
+
+  <!-- Specialized work -->
+  <div style="margin-top: 40px;">
+    <div class="section-label">Specialized</div>
+    <h2 class="section-title" style="margin-bottom:40px;">Motion, AI<br>& <em>3D Work</em></h2>
+  </div>
+
+  <div class="portfolio-grid">
+
+    <a class="portfolio-link-item" href="https://youtu.be/cs6GVOCQDFc" target="_blank" style="background: linear-gradient(135deg, #111 60%, rgba(200,169,110,0.08));">
+      <div class="pli-num">—</div>
+      <div class="pli-type">Motion Graphics · SaaS OVC</div>
+      <div class="pli-title">Motion Graphics & OVC for SaaS</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+    <a class="portfolio-link-item" href="https://www.facebook.com/share/r/1DF5cFsAQB/" target="_blank" style="background: linear-gradient(135deg, #111 60%, rgba(200,169,110,0.05));">
+      <div class="pli-num">—</div>
+      <div class="pli-type">3D Work · Product</div>
+      <div class="pli-title">3D Product Visualization</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+    <a class="portfolio-link-item" href="https://www.instagram.com/reel/DLIrbPUTb_f/" target="_blank" style="background: linear-gradient(135deg, #111 60%, rgba(200,169,110,0.06));">
+      <div class="pli-num">—</div>
+      <div class="pli-type">Generative AI · Instagram</div>
+      <div class="pli-title">AI-Generated Creative Reel</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+    <a class="portfolio-link-item" href="https://www.instagram.com/reel/DIUiZiszmtz/" target="_blank" style="background: linear-gradient(135deg, #111 60%, rgba(200,169,110,0.05));">
+      <div class="pli-num">—</div>
+      <div class="pli-type">Generative AI · Instagram</div>
+      <div class="pli-title">AI Creative Reel #2</div>
+      <div class="pli-arrow">↗</div>
+    </a>
+
+    <a class="portfolio-link-item" href="https://youtube.com/playlist?list=PLHj4iOIDYKKXlaOcAcriOLVVVJcomfwVS" target="_blank" style="grid-column: span 2; background: linear-gradient(135deg, #111 60%, rgba(200,169,110,0.07));">
+      <div class="pli-num">∞</div>
+      <div class="pli-type">Bulk Projects · YouTube Playlist</div>
+      <div class="pli-title">Full Portfolio — Bulk Projects Collection</div>
+      <div class="pli-arrow" style="font-size:1.4rem;">↗</div>
+    </a>
+
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="section-label">Capabilities</div>
+  <h2 class="section-title">Professional<br><em>Skills</em></h2>
+
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Paid Advertising</div>
+      <ul class="skill-list">
+        <li>Google Ads</li>
+        <li>Meta Ads</li>
+        <li>Reddit Ads</li>
+        <li>TikTok Ads</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Analytics & Tracking</div>
+      <ul class="skill-list">
+        <li>Google Analytics 4 (GA4)</li>
+        <li>Google Tag Manager (GTM)</li>
+        <li>YouTube Studio</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Creative & Video</div>
+      <ul class="skill-list">
+        <li>Adobe Premiere Pro</li>
+        <li>Adobe After Effects</li>
+        <li>Adobe Illustrator</li>
+        <li>Generative AI Tools</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Design & Collaboration</div>
+      <ul class="skill-list">
+        <li>Figma</li>
+        <li>Canva</li>
+        <li>3D Production</li>
+        <li>Motion Graphics</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Project Management</div>
+      <ul class="skill-list">
+        <li>ClickUp Automation</li>
+        <li>Notion</li>
+        <li>Workflow Automation</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Communication</div>
+      <ul class="skill-list">
+        <li>Slack</li>
+        <li>Google Workspace</li>
+        <li>Remote Team Management</li>
+        <li>Cross-functional Collaboration</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="experience-section">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title">Work<br><em>History</em></h2>
+
+  <div class="exp-timeline">
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">2026 — Present</div>
+        <div class="exp-company">Thikana Broadcasting Network<br>New York (Remote)</div>
+      </div>
+      <div>
+        <div class="exp-role">Lead Video Editor</div>
+        <ul class="exp-points">
+          <li>Drove digital transformation in video marketing by integrating Generative AI, workflow automation, and process optimization, increasing content delivery speed by 1.5×.</li>
+          <li>Produced and optimized long-form and short-form marketing content for social platforms, collaborating with high-reach Bangladeshi public figures.</li>
+          <li>Managed end-to-end content operations, including post-production strategy and digital distribution.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">2025 — 2026</div>
+        <div class="exp-company">Nextventures.io<br>Dhaka</div>
+      </div>
+      <div>
+        <div class="exp-role">Senior Brand Manager, FundedNext</div>
+        <ul class="exp-points">
+          <li>Led global creative strategy for digital advertising across Google Ads and Meta platforms to drive growth and brand consistency.</li>
+          <li>Developed high-performing ad creatives generating USD 1M+ revenue with an average 12× ROAS, including key product launches.</li>
+          <li>Executed paid and organic campaigns across 114+ countries and 17+ languages, ensuring localization and cultural relevance.</li>
+          <li>Collaborated with cross-functional teams to scale campaigns and optimize performance using data-driven insights.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">2023 — 2025</div>
+        <div class="exp-company">Shikho Technologies Ltd.<br>Dhaka</div>
+      </div>
+      <div>
+        <div class="exp-role">Creative Producer</div>
+        <ul class="exp-points">
+          <li>Generated sales through strategic ad development and hands-on content production.</li>
+          <li>Led successful campaigns that raised Shikho's visibility, including features on Bloomberg Catalyst.</li>
+          <li>Played a key role in helping Shikho win 'Best IT Company' and the ICT Award 2024.</li>
+          <li>Honored with the 'Value Award 2023' in the Think Different category for outstanding creative leadership.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">2020 — 2023</div>
+        <div class="exp-company">Qinetic Network Ltd.<br>Dhaka</div>
+      </div>
+      <div>
+        <div class="exp-role">Director of Photography</div>
+        <ul class="exp-points">
+          <li>Created and managed content across Qinetic's in-house brands including DaekhoTV, Appi, Techmishali, and Qinetic Music.</li>
+          <li>Partnered with more than 100 brands including GP, Techno, Vivo, Sunsilk, and Skitto.</li>
+          <li>Collaborated with musicians, bands, influencers, filmstars and filmmakers to deliver impactful multimedia content.</li>
+          <li>Generated over billions of views for clients and brands.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">2019 — 2020</div>
+        <div class="exp-company">Daekho TV<br>Dhaka</div>
+      </div>
+      <div>
+        <div class="exp-role">Content Producer</div>
+        <ul class="exp-points">
+          <li>Produced influencer-driven content tailored for digital platforms and brand partnerships.</li>
+          <li>Specialized in trend-aligned social media content that resonated with wide audiences.</li>
+          <li>Worked on in-house productions, developing creative direction in alignment with digital engagement strategies.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="edu-section">
+  <div class="section-label">Education</div>
+  <h2 class="section-title">Academic<br><em>Background</em></h2>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2026 — Current</div>
+      <div class="edu-degree">Master of Science in Business Analytics & Digital Transformation</div>
+      <div class="edu-institution">Asian Institute of Technology · Bangkok</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2019 — 2023</div>
+      <div class="edu-degree">Bachelor of Business Administration in Digital Marketing</div>
+      <div class="edu-institution">BRAC University · Dhaka</div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="section-label">Contact</div>
+    <h2 class="contact-headline">Let's build<br>something<br><em>remarkable.</em></h2>
+
+    <div class="contact-links">
+      <a href="mailto:aminahamed.dp@gmail.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-val">aminahamed.dp@gmail.com</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="tel:+8801882670619" class="contact-link">
+        <span class="contact-link-label">Phone / WhatsApp</span>
+        <span class="contact-link-val">+880 1882 670619</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="tel:+660990120451" class="contact-link">
+        <span class="contact-link-label">Thailand</span>
+        <span class="contact-link-val">+66 0990 120451</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="https://youtu.be/QyK_fNPA_1M" target="_blank" class="contact-link">
+        <span class="contact-link-label">Showreel</span>
+        <span class="contact-link-val">Watch Cinematography Reel</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span class="footer-gold">Amin Ahamed Rifat</span></p>
+  <p>Creative Producer · Bangkok</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .case-item, .portfolio-link-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform += ' scale(2)';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+      ring.style.borderColor = 'rgba(200,169,110,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(200,169,110,0.5)';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.case-item, .exp-item, .stat-card, .skill-group, .edu-card, .portfolio-link-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
